@@ -15,7 +15,7 @@ class UsersHubConsumer(AsyncWebsocketConsumer):
 		user_info = json.dumps({
 			'id': self.scope['user'].id,
 			'email': self.scope['user'].email,
-			'status_online': True
+			'isOnline': True
 		})
 
 		await self.channel_layer.group_send(
@@ -35,7 +35,7 @@ class UsersHubConsumer(AsyncWebsocketConsumer):
 		user_info = json.dumps({
 			'id': self.scope['user'].id,
 			'email': self.scope['user'].email,
-			'status_online': False
+			'isOnline': False
 		})
 
 		await self.channel_layer.group_send(
@@ -47,6 +47,8 @@ class UsersHubConsumer(AsyncWebsocketConsumer):
 		)
 
 	async def send_user_info_to_client(self, event):
+		user_info = json.loads(event['user_info'])
+
 		await self.send(text_data=json.dumps({
-			'userInfo': event['user_info']
+			'userInfo': user_info
 		}))
