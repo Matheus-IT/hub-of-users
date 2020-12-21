@@ -10,6 +10,11 @@ def index(request):
 		users = User.objects.select_related('logged_in_user')
 		for user in users:
 			user.status = 'online' if hasattr(user, 'logged_in_user') else 'offline'
+			
+			# if the current user is offline because he might've left from other device, which was
+			# connected at the same time, but is still registered he can go as online
+			if user.id == request.user.id and user.status == 'offline':
+				user.status = 'online'
 
 		return render(request, 'users_hub/index.html', {'users': users})
 	else:
