@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6em 1.6em;
+  background-color: #e7e7e7;
+}
+
+.userStatus {
+  background: #FFF;
+  padding: 0.6em;
+  border-radius: 0.3em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.125);
+}
+
+#appTitle {
+  margin: 0;
+  font-style: italic;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.nav-item:not(:last-child) {
+  margin-right: 0.5em;
+}
+.nav-link {
+  display: flex;
+  color: #FFF;
+  font-weight: 600;
+  border-radius: 0.3em;
+  border-bottom: 0.125em solid #999999;
+  text-transform: uppercase;
+  background-color: #999999;
+  transition: all 250ms ease-in-out;
+}
+.nav-link:hover {
+  color: #1a1a1a;
+  border-bottom-color: #222222;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+.nav-link .sizeOfWatchlist {
+  padding: 0 0.4em;
+  margin-left: 0.4em;
+  background-color: #555555;
+  border-radius: 0.2em;
+}
+
+@media (max-width: 500px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    margin-bottom: 0.5em;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

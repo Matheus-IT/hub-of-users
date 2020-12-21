@@ -1,0 +1,74 @@
+// colors
+$lightGray: rgb(231, 231, 231);
+$gray: rgb(153, 153, 153);
+$darkGray: rgb(85, 85, 85);
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.6em 1.6em;
+	background-color: $lightGray;
+}
+
+.userStatus {
+	background: #FFF;
+	padding: 0.6em;
+	border-radius: 0.3em;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.125);
+}
+
+#appTitle {
+	margin: 0;
+	font-style: italic;
+	text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.nav {
+	$link_color: #FFF;
+
+	&-item {
+		&:not(:last-child) {
+			margin-right: 0.5em;
+		}
+	}
+
+	&-link {
+		display: flex;
+		color: $link_color;
+		font-weight: 600;
+		border-radius: 0.3em;
+		border-bottom: 0.125em solid $gray;
+
+		text-transform: uppercase;
+		background-color: $gray;
+		transition: all 250ms ease-in-out;
+
+		&:hover {
+			color: darken($link_color, 90);
+			border-bottom-color: rgb(34, 34, 34);
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+		}
+
+		.sizeOfWatchlist {
+			padding: 0 0.4em;
+			margin-left: 0.4em;
+
+			background-color: $darkGray;
+			border-radius: 0.2em;
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.header {
+		flex-direction: column;
+
+	}
+
+	.nav {
+		&-item {
+			margin-bottom: 0.5em;
+		}
+	}
+}
