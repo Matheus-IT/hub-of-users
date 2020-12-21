@@ -11,11 +11,18 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const socket = new WebSocket(`ws://${window.location.host}/ws/hub/`);
-			let activeUsers = [];
 			
 			socket.onmessage = function(event) {
 				const data = JSON.parse(event.data);
-				console.log(data);
+				const userInfo = data.userInfo;
+				
+				const user = document.querySelector(`#user${userInfo.id}`);
+				const currentUserId = '{{ request.user.id }}';
+				
+				/* In case the current user has two tabs/devices logged in and leaves from the
+				* other tab/device, the current session remains connected */
+				if (userInfo.id != currentUserId)
+					user.querySelector('.status').innerHTML = 'online' ? (userInfo.isOnline) : 'offline';
 			}
 		});
 	</script>
@@ -25,7 +32,9 @@
 {% block content %}
 	<ul>
 		{% for user in users %}
-			<li>{{ user.email }} - {{ user.status }}</li>
+			<li class="user" id="user{{ user.id }}">
+				{{ user.email }} - <div class="status">{{ user.status }}</div>
+			</li>
 		{% empty %}
 			<li>No one is here...</li>
 		{% endfor %}
