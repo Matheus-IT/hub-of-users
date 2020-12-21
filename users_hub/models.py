@@ -9,7 +9,8 @@ class User(AbstractUser):
 
 class LoggedInUser(models.Model):
 	""" Create a LoggedInUser instance when a user logs in, and the app will delete the instance
-		when the user logs out """
+		when the user logs out.
+		For this to be triggered I had to write what's inside 'signals.py'."""
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL, 
 		on_delete=models.CASCADE, 
