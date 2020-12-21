@@ -5,19 +5,20 @@
 {% endblock %}
 
 {% block adicionalInHead %}
-	<style>
-		body {
-			overflow: hidden;
-		}
-		
-		h1 {
-			display: flex;
-			flex: 1;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-		}
+	<style>		
+		/* nothing yet :)  */
 	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const socket = new WebSocket(`ws://${window.location.host}/ws/hub/`);
+			let activeUsers = [];
+			
+			socket.onmessage = function(event) {
+				const data = JSON.parse(event.data);
+				console.log(data);
+			}
+		});
+	</script>
 {% endblock %}
 
 
@@ -25,12 +26,11 @@
 	<h1>
 		Hello world!
 	<h1>
-	<script>
-		const socket = new WebSocket(`ws://${window.location.host}/ws/hub/`);
-		
-		socket.onmessage = function(event) {
-			const data = JSON.parse(event.data);
-			console.log(data);
-		}
-	</script>
+	<ul>
+		{% for user in users %}
+			<li>{{ user.email }} - {{ user.status }}</li>
+		{% empty %}
+			<li>No one is here...</li>
+		{% endfor %}
+	</ul>
 {% endblock %}
