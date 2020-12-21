@@ -1,11 +1,18 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.urls import reverse
+
+User = get_user_model()
 
 
 def index(request):
 	if request.user.is_authenticated:
-		return render(request, 'users_hub/index.html')
+		users = User.objects.select_related('logged_in_user')
+		for user in users:
+			user.status = 'online' if hasattr(user, 'logged_in_user') else 'offline'
+			print(hasattr(user, 'logged_in_user'))
+
+		return render(request, 'users_hub/index.html', {'users': users})
 	else:
 		return HttpResponseRedirect(reverse('register'))
 
@@ -38,7 +45,6 @@ def logout_view(request):
 
 def register(request):
 	from django.db import IntegrityError
-	from .models import User
 
 	TEMPLATE_NAME = 'users_hub/register.html'
 
