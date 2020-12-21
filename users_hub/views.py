@@ -10,7 +10,6 @@ def index(request):
 		users = User.objects.select_related('logged_in_user')
 		for user in users:
 			user.status = 'online' if hasattr(user, 'logged_in_user') else 'offline'
-			print(hasattr(user, 'logged_in_user'))
 
 		return render(request, 'users_hub/index.html', {'users': users})
 	else:
