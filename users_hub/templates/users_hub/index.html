@@ -21,8 +21,17 @@
 				
 				/* In case the current user has two tabs/devices logged in and leaves from the
 				* other tab/device, the current session remains connected */
-				if (userInfo.id != currentUserId)
-					user.querySelector('.status').innerHTML = 'online' ? (userInfo.isOnline) : 'offline';
+				if (userInfo.id != currentUserId) {
+					const userStatus = user.querySelector('.status');
+					
+					if (userInfo.isOnline) {
+						userStatus.innerHTML = 'online';
+						userStatus.setAttribute('data-status', 'online');
+					} else {
+						userStatus.innerHTML = 'offline';
+						userStatus.setAttribute('data-status', 'offline');
+					}
+				}
 			}
 		});
 	</script>
@@ -30,13 +39,15 @@
 
 
 {% block content %}
-	<ul>
-		{% for user in users %}
-			<li class="user" id="user{{ user.id }}">
-				{{ user.email }} - <div class="status">{{ user.status }}</div>
-			</li>
-		{% empty %}
-			<li>No one is here...</li>
-		{% endfor %}
-	</ul>
+	<div class="usersHubContainer">
+		<ul>
+			{% for user in users %}
+				<li class="user" id="user{{ user.id }}">
+					{{ user.email }} <div class="status" data-status="{{ user.status }}">{{ user.status }}</div>
+				</li>
+			{% empty %}
+				<li>No one is here...</li>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

@@ -72,3 +72,25 @@ $darkGray: rgb(85, 85, 85);
 		}
 	}
 }
+
+.usersHubContainer {
+	margin: 1.6em;
+
+	.user {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		.status {
+			margin-left: 0.8em;
+			font-weight: bold;
+		}
+		.status[data-status="online"] {
+			color: #1DFA04;
+		}
+		.status[data-status="offline"] {
+			color: #C3ED07;
+		}
+	}
+}
